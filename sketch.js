@@ -23,6 +23,12 @@ function setup(){
     ground2 = createSprite(width/2+300,height-200,width/2,10);
     ground2.shapeColor = "blue";
 
+    ground3 = createSprite(width/2,height-400,width/4,10);
+    ground3.shapeColor = "green";
+
+    ground4 = createSprite(width/2-300,height-600,width/5,10);
+    ground4.shapeColor = "orange";
+
     //JUGADOR
     player = createSprite(30,height-15,10,10);
     player.shapeColor = "white";
@@ -38,8 +44,11 @@ function draw(){
     }
 
     if(gameState === 1){
-        camera.position.y = player.y;
+        
         player.collide(ground1);
+        player.collide(ground2);
+        player.collide(ground3);
+        player.collide(ground4);
 
         if(keyDown("left") || keyDown("a")){
             player.x -= 5;
@@ -63,6 +72,9 @@ function draw(){
             player.velocityY += 5;
     
         }*/
+        if(player.y < 10){
+            camera.position.y = player.y;
+        }
     } 
 
        
@@ -70,4 +82,8 @@ function draw(){
     drawSprites();
 
   
+}
+
+function ground(){
+
 }
