@@ -6,7 +6,9 @@ var engine, world;
 
 var player;
 var gameState = 0;
-var ground1;
+var ground, ground1;
+
+var groundGroup;
 
 function preload(){
     
@@ -15,29 +17,26 @@ function preload(){
 
 function setup(){
     createCanvas(windowWidth,windowHeight);
+
+     //JUGADOR
+     player = createSprite(30,height-15,10,10);
+     player.shapeColor = "white";
     
+    groundGroup = createGroup();
 
     ground1 = createSprite(width/2,height-10,width,10);
     ground1.shapeColor = "red";
 
-    ground2 = createSprite(width/2+300,height-200,width/2,10);
-    ground2.shapeColor = "blue";
+    grounds();
+    groundGroup.collide(player);
 
-    ground3 = createSprite(width/2,height-400,width/4,10);
-    ground3.shapeColor = "green";
-
-    ground4 = createSprite(width/2-300,height-600,width/5,10);
-    ground4.shapeColor = "orange";
-
-    //JUGADOR
-    player = createSprite(30,height-15,10,10);
-    player.shapeColor = "white";
+   
 
 }
 
 function draw(){
     background(0);
-   
+    
 
     if(gameState === 0 && keyDown("space")){
         gameState = 1;
@@ -46,9 +45,7 @@ function draw(){
     if(gameState === 1){
         
         player.collide(ground1);
-        player.collide(ground2);
-        player.collide(ground3);
-        player.collide(ground4);
+               
 
         if(keyDown("left") || keyDown("a")){
             player.x -= 5;
@@ -67,11 +64,11 @@ function draw(){
     
         }
         player.velocityY = player.velocityY + 2;
-       /*if(keyDown("down")){
+        if(keyDown("down")){
             
-            player.velocityY += 5;
+            player.y += 5;
     
-        }*/
+        }
         if(player.y < 10){
             camera.position.y = player.y;
         }
@@ -84,6 +81,11 @@ function draw(){
   
 }
 
-function ground(){
+function grounds(){
+    var H = height-10;
 
+    for(var i=0; i<20; i++){
+        ground = createSprite(Math.round(random(0,width)),H-200*i,300,10);
+        groundGroup.add(ground);
+    }
 }
